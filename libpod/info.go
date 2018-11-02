@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"github.com/containers/buildah"
 	"io/ioutil"
 	"os"
 	"runtime"
@@ -12,7 +11,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/containers/buildah"
 	"github.com/containers/libpod/pkg/rootless"
+
 	"github.com/containers/libpod/utils"
 	"github.com/containers/storage/pkg/system"
 	"github.com/pkg/errors"
@@ -182,7 +183,7 @@ func (r *Runtime) GetConmonVersion() (string, error) {
 
 // GetOCIRuntimeVersion returns a string representation of the oci runtimes version
 func (r *Runtime) GetOCIRuntimeVersion() (string, error) {
-	output, err := utils.ExecCmd(r.ociRuntimePath, "--version")
+	output, err := utils.ExecCmd(r.ociRuntimePath.Paths[0], "--version")
 	if err != nil {
 		return "", err
 	}

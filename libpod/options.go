@@ -107,7 +107,11 @@ func WithOCIRuntime(runtimePath string) RuntimeOption {
 			return errors.Wrapf(ErrInvalidArg, "must provide a valid path")
 		}
 
-		rt.config.RuntimePath = []string{runtimePath}
+		rt.config.OCIRuntimes = []OCIRuntimePath{
+			{
+				Paths: []string{runtimePath},
+			},
+		}
 
 		return nil
 	}
